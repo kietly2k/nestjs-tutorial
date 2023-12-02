@@ -31,7 +31,10 @@ export default class AuthService {
       // return saved user
       return user;
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
+      if (
+        error instanceof
+        PrismaClientKnownRequestError
+      ) {
         if (error.code === 'P2002') {
           throw new ForbiddenException(
             'Credentials taken',
@@ -43,7 +46,28 @@ export default class AuthService {
     }
   }
 
-  signin() {
-    return 'This is sign in';
+  async signin(dto: AuthDto) {
+    // find user by email
+    // findFirst allow to find any field
+    // findUnique only find unique field
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+    // if user does not exist throw exception
+    if(!user)
+      throw new ForbiddenException('Email incorrect');
+
+    // compare password
+    const pwMatches = await argon.verify(user.hash, dto.password);
+
+    // if incorrect then throw exception
+    if(pwMatches == false)
+      throw new ForbiddenException('Password incorrect');
+
+    // send back to the user
+    delete user.hash;
+    return user;
   }
 }
