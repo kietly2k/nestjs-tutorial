@@ -12,7 +12,7 @@ The @nestjs/config package internally uses dotenv.
 - The @nestjs/jwt package is a utility package that helps with JWT manipulation
 - The @nestjs/passport package is the abtraction use passport js to handle author, authen
 - [passport](https://docs.nestjs.com/recipes/passport)
-
+- [Guards](https://docs.nestjs.com/guards) function that stand between route and http request. Prevent access to route if request does not match requirement.
 
 ## [Prima](https://www.prisma.io)
 - ORM for connect and do database stuff

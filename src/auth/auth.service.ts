@@ -3,7 +3,6 @@ import {
   Injectable,
   Res,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDto } from './dto';
 import * as argon from 'argon2';
