@@ -11,8 +11,19 @@ The @nestjs/config package internally uses dotenv.
 - NestJS also support Authorize, Authentiacation with [Passportjs](https://www.passportjs.org/) under the hood.
 - The @nestjs/jwt package is a utility package that helps with JWT manipulation
 - The @nestjs/passport package is the abtraction use passport js to handle author, authen
-- [passport](https://docs.nestjs.com/recipes/passport)
+- [Passport](https://docs.nestjs.com/recipes/passport)
 - [Guards](https://docs.nestjs.com/guards) function that stand between route and http request. Prevent access to route if request does not match requirement.
+- [Custom Decorators](https://docs.nestjs.com/custom-decorators)
+- Some default Decorator that NestJS provide out of the box saved a lot of time like @Param, @HTTPCode,...
+
+When a request send to NestJS controller. The workflow will be:
+Guard -> Param decorator -> Controller
+Guard use strategy to handle request validation (Ex: authentication) 
+Param decorator: get request data. Process it then return processed data to controller
+Controller: receive then use services to process business logic then return response
+
+By default Post request in NestJS return 201 status code and that behavior can change by using HttpCode decorator
+Should estimate testing time equal to development time
 
 ## [Prima](https://www.prisma.io)
 - ORM for connect and do database stuff

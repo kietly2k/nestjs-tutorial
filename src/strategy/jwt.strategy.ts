@@ -25,13 +25,15 @@ export class JwtStrategy extends PassportStrategy(
 
   // Receive jwt token. Parse it do something with the data.
   // Validate then return data append to user property in request object (Express)
-  validate(payload: any) {
-    const user = this.prismaSvc.user.findUnique({
+  async validate(payload: any) {
+    console.log("Get in strategy");
+    const user = await this.prismaSvc.user.findUnique({
       where: {
         id: payload.sub,
       },
     });
-
+    if(user)
+      delete user.hash;
     // If does not find user then return null. Return null will return 401 unauthorize
     return user;
   }
